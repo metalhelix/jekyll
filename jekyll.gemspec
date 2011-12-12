@@ -38,6 +38,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency('RedCloth', "~> 4.2")
   s.add_development_dependency('rdiscount', "~> 1.6")
   s.add_development_dependency('redcarpet', "~> 1.9")
+  s.add_development_dependency('test-unit', "~> 1.2.3")
   
   # = MANIFEST =
   s.files = %w[
