@@ -27,6 +27,7 @@ require 'maruku'
 require 'albino'
 
 # internal requires
+require 'jekyll/version'
 require 'jekyll/core_ext'
 require 'jekyll/site'
 require 'jekyll/convertible'
@@ -46,8 +47,6 @@ require_all 'jekyll/generators'
 require_all 'jekyll/tags'
 
 module Jekyll
-  VERSION = '0.11.1'
-
   # Default options. Overriden by values in _config.yml or command-line opts.
   # (Strings rather symbols used for compatability with YAML).
   DEFAULTS = {
