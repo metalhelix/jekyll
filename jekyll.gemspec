@@ -31,7 +31,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('kramdown', "~> 0.13")
   s.add_runtime_dependency('albino', "~> 1.3")
 
-  s.add_development_dependency('rake', "~> 0.9")
+  s.add_development_dependency('rake', "~> 0.9.2")
   s.add_development_dependency('rdoc', "~> 3.11")
   s.add_development_dependency('redgreen', "~> 1.2")
   s.add_development_dependency('shoulda', "~> 2.11")
@@ -41,6 +41,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency('rdiscount', "~> 1.6")
   s.add_development_dependency('redcarpet', "~> 1.9")
   s.add_development_dependency('test-unit', "~> 1.2.3")
+  s.add_development_dependency('bundler', "~> 1.0")
   s.files = `git ls-files`.split("\n")
   s.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
 
