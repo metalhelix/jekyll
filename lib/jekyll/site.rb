@@ -175,7 +175,6 @@ module Jekyll
         end
       end
 
-      puts self.post_data.inspect
       self.posts.sort!
 
       # limit the posts if :limit_posts option is set
