@@ -5,7 +5,7 @@ module Jekyll
   class Site
     attr_accessor :config, :layouts, :posts, :pages, :static_files,
                   :categories, :exclude, :source, :dest, :lsi, :pygments,
-                  :permalink_style, :tags, :time, :future, :safe, :plugins, :limit_posts
+                  :permalink_style, :tags, :time, :future, :safe, :plugins, :limit_posts, :post_data
 
     attr_accessor :converters, :generators
 
@@ -57,6 +57,7 @@ module Jekyll
       self.static_files    = []
       self.categories      = Hash.new { |hash, key| hash[key] = [] }
       self.tags            = Hash.new { |hash, key| hash[key] = [] }
+      self.post_data       = Hash.new { |hash, key| hash[key] = Hash.new { |h2,k2| h2[k2] = [] } }
 
       if !self.limit_posts.nil? && self.limit_posts < 1
         raise ArgumentError, "Limit posts must be nil or >= 1"
@@ -166,10 +167,15 @@ module Jekyll
             self.posts << post
             post.categories.each { |c| self.categories[c] << post }
             post.tags.each { |c| self.tags[c] << post }
+            post.data.each do |key,value|
+              next if value.instance_of? Array
+              self.post_data[key][value] << post
+            end
           end
         end
       end
 
+      puts self.post_data.inspect
       self.posts.sort!
 
       # limit the posts if :limit_posts option is set
