@@ -168,8 +168,10 @@ module Jekyll
             post.categories.each { |c| self.categories[c] << post }
             post.tags.each { |c| self.tags[c] << post }
             post.data.each do |key,value|
-              next if value.instance_of? Array
-              self.post_data[key][value] << post
+              values = [value].flatten
+              values.each do |val|
+                self.post_data[key][val] << post
+              end
             end
           end
         end
@@ -297,7 +299,9 @@ module Jekyll
           "pages"      => self.pages,
           "html_pages" => self.pages.reject { |page| !page.html? },
           "categories" => post_attr_hash('categories'),
-          "tags"       => post_attr_hash('tags')})}
+          "tags"       => post_attr_hash('tags'),
+          "post_data" => self.post_data
+      })}
     end
 
     # Filter out any files/directories that are hidden or backup files (start
