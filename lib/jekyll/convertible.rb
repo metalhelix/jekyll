@@ -26,14 +26,25 @@ module Jekyll
     def read_yaml(base, name)
       self.content = File.read(File.join(base, name))
 
-      if self.content =~ /^(---\s*\n.*?\n?)^(---\s*$\n?)/m
-        self.content = $POSTMATCH
+      #This doesn't seem to work
+      #self.content.encode!("UTF-8", :undef => :replace, :invalid => :replace)
 
-        begin
+      # this breaks the --- --- yaml loading
+      # self.content.force_encoding("ASCII-8BIT")   # if not already
+      # self.content.gsub!(/[^\\x20-\\x7e]/,'')
+      # self.content.force_encoding("UTF-8")
+
+      begin
+        if self.content =~ /^(---\s*\n.*?\n?)^(---\s*$\n?)/m
+          self.content = $POSTMATCH
+
           self.data = YAML.load($1)
-        rescue => e
-          puts "YAML Exception reading #{name}: #{e.message}"
         end
+      rescue ArgumentError
+        STDERR.puts "The contents of post #{name} are causing some problems. Most likely it has characters that are invalid UTF-8. Please correct this and try again."
+        exit(1)
+      rescue => e
+        puts "YAML Exception reading #{name}: #{e.message}"
       end
 
       self.data ||= {}
@@ -78,7 +89,7 @@ module Jekyll
       begin
         self.content = Liquid::Template.parse(self.content).render(payload, info)
       rescue => e
-        puts "Liquid Exception: #{e.message} in #{self.name}"
+        puts "Liquid Exception: #{e.message} in #{self.id}"
       end
 
       self.transform
