@@ -89,7 +89,7 @@ module Jekyll
       begin
         self.content = Liquid::Template.parse(self.content).render(payload, info)
       rescue => e
-        puts "Liquid Exception: #{e.message} in #{self.id}"
+        puts "Liquid Exception: #{e.message}"
       end
 
       self.transform
