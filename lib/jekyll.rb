@@ -64,6 +64,7 @@ module Jekyll
     'source'       => Dir.pwd,
     'destination'  => File.join(Dir.pwd, '_site'),
     'plugins'      => File.join(Dir.pwd, '_plugins'),
+    'add_html'     => true,
 
     'future'       => true,
     'lsi'          => false,

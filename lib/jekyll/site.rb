@@ -5,7 +5,9 @@ module Jekyll
   class Site
     attr_accessor :config, :layouts, :posts, :pages, :static_files,
                   :categories, :exclude, :source, :dest, :lsi, :pygments,
-                  :permalink_style, :tags, :time, :future, :safe, :plugins, :limit_posts, :post_data
+                  :permalink_style, :tags, :time, :future, :safe, :plugins, :limit_posts, :post_data,
+                  :add_html
+    
 
     attr_accessor :converters, :generators
 
@@ -25,6 +27,8 @@ module Jekyll
       self.exclude         = config['exclude'] || []
       self.future          = config['future']
       self.limit_posts     = config['limit_posts'] || nil
+
+      self.add_html        = config['add_html']
 
       self.reset
       self.setup
